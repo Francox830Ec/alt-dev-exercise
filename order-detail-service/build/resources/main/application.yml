@@ -1,0 +1,20 @@
+server:
+  port: 3002
+spring:
+  application:
+    name: order-detail-service
+  webflux:
+    base-path: /api/v1
+  kafka:
+    consumer:
+      properties:
+        client-topic: client-ext-inf
+    bootstrap-servers: kafka:29092
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/
+    username: postgres
+    password: postgres
+    name: altexc
+    properties:
+      port: 5432
+      hostname: localhost
