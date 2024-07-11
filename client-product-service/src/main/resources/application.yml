@@ -1,0 +1,21 @@
+server:
+  port: 3001
+spring:
+  application:
+    name: client-product-service
+  webflux:
+    base-path: /api/v1
+  kafka:
+    producer:
+      properties:
+        client-external-information-topic: client-ext-inf
+        client-external-information-key: cli-per
+    bootstrap-servers: kafka:29092
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/
+    username: postgres
+    password: postgres
+    name: altexc
+    properties:
+      port: 5432
+      hostname: localhost
