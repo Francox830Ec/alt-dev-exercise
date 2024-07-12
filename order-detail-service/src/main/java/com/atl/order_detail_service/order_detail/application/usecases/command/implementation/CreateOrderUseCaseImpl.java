@@ -10,6 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,10 +26,11 @@ public class CreateOrderUseCaseImpl implements ICreateOrderUseCase {
 
 
     @Override
-    public Mono<OrderDTO> create(OrderRequestDTO requestDTO1) {
+    public Mono<OrderDTO> create(OrderRequestDTO requestDTO) {
         return orderRepository
-                .create(new OrderDTO(requestDTO1.ordUUID(), requestDTO1.cliUUID(), requestDTO1.ordCode(), requestDTO1.ordDate()))
-                .zipWhen(orderDTO -> createAllOrderDetail(orderDTO.ordUUID(), requestDTO1).collectList())
+                .create(new OrderDTO(requestDTO.ordUUID(), requestDTO.cliUUID(), requestDTO.ordCode(),
+                        LocalDate.parse(requestDTO.ordDate())))
+                .zipWhen(orderDTO -> createAllOrderDetail(orderDTO.ordUUID(), requestDTO).collectList())
                 .map(Tuple2::getT1);
     }
 

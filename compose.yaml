@@ -61,13 +61,21 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
   postgres:
-    image: postgres:16-alpine
+    image: debezium/postgres:16
     restart: always
-    container_name: alt-devexc_postgres_16
+    container_name: alt-devexc_debezium_postgres_16
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: altexc
       PGDATA: /data/postgres
+
+  redis:
+    image: redis:7.0-alpine
+    restart: always
+    container_name: alt-devexc_alpine-redis_7.0
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes

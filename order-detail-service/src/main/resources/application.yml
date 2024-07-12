@@ -18,3 +18,8 @@ spring:
     properties:
       port: 5432
       hostname: localhost
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: redis

@@ -2,3 +2,6 @@
 *.bin
 *.bin
 /.idea
+*.bin
+*.properties
+*.bin

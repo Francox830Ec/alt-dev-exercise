@@ -5,8 +5,10 @@ import com.atl.order_detail_service.order_detail.domain.port.out.IOrderDetailCom
 import com.atl.order_detail_service.order_detail.infrastructure.entity.OrderDetailEntity;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class OrderDetailCommandReactivePostgresRepository implements IOrderDetailCommandReactiveRepository {
@@ -22,5 +24,10 @@ public class OrderDetailCommandReactivePostgresRepository implements IOrderDetai
                 .map(dto -> new OrderDetailEntity(dto.odtUUID(), dto.ordUUID(), dto.proUUID(), dto.odtUnitPrice()))
                 .toList())
                 .map(entity -> new OrderDetailDTO(entity.odtUUID(), entity.ordUUID(), entity.proUUID(), entity.odtUnitPrice()));
+    }
+
+    @Override
+    public Mono<Void> deleteByOrdUUID(UUID ordUUID) {
+        return repository.deleteByOrdUUID(ordUUID);
     }
 }
