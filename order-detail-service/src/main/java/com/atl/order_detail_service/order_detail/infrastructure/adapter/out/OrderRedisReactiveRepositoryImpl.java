@@ -28,7 +28,7 @@ public class OrderRedisReactiveRepositoryImpl implements IOrderReadingDBReactive
 
     @Override
     public void save(OrderETO eto) {
-        Boolean haveOrders = reactiveHashOperations.hasKey("orders", hashKey).block();
+        Boolean haveOrders = reactiveHashOperations.hasKey("orders", eto.ordUUID().toString()).block();
         if(!haveOrders){
             List<OrderDetailETO> orderDetailList = new ArrayList<>();
             orderDetailList.add(eto.orderDetail());
@@ -45,7 +45,7 @@ public class OrderRedisReactiveRepositoryImpl implements IOrderReadingDBReactive
     }
 
     private void buildOrders(List<OrderDetailETO> orderDetailList, OrderETO eto){
-        reactiveHashOperations.put("orders", hashKey,
+        reactiveHashOperations.put("orders", eto.ordUUID().toString(),
                         new OrderHash(eto.ordUUID(), eto.ordCode(), eto.ordDate().toString(), eto.client(),
                                 orderDetailList ))
                 .subscribeOn(Schedulers.boundedElastic())
