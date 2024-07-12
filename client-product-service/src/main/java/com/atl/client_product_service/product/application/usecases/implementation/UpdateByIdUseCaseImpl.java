@@ -18,7 +18,7 @@ public class UpdateByIdUseCaseImpl implements IUpdateByIdProductUseCase {
     public Mono<ProductDTO> updateById(UUID uuid, ProductDTO requestDto) {
         return repository.findById(uuid)
                 .flatMap(sourceDTO -> repository
-                        .update(new ProductDTO(sourceDTO.uuid(), requestDto.code(), requestDto.name()))
-                        .map(dtoSaved -> new ProductDTO(dtoSaved.uuid(), dtoSaved.code(), dtoSaved.name())));
+                        .update(new ProductDTO(sourceDTO.uuid(), requestDto.code(), requestDto.name(), requestDto.stock()))
+                        .map(dtoSaved -> new ProductDTO(dtoSaved.uuid(), dtoSaved.code(), dtoSaved.name(), dtoSaved.stock())));
     }
 }

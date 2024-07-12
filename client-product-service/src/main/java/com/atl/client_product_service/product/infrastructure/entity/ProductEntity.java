@@ -16,6 +16,9 @@ public record ProductEntity(
         String code,
 
         @Column("pro_name")
-        String name
+        String name,
+
+        @Column("pro_stock")
+        Integer stock
 ) {
 }

@@ -9,6 +9,7 @@ CREATE TABLE if not exists public.product (
       pro_UUID uuid NOT NULL default gen_random_uuid(),
       pro_code varchar NOT NULL,
       pro_name varchar NOT NULL,
+      pro_stock numeric not null,
       CONSTRAINT product_pk PRIMARY KEY (pro_UUID)
 );
 

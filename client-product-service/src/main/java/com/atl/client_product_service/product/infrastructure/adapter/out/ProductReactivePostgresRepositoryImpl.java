@@ -19,8 +19,8 @@ public class ProductReactivePostgresRepositoryImpl implements IProductReactiveRe
 
     @Override
     public Mono<ProductDTO> create(ProductDTO dto) {
-        return repository.save(new ProductEntity(dto.uuid(), dto.code(), dto.name()))
-                .map(entity -> new ProductDTO(entity.uuid(), entity.code(), entity.name()));
+        return repository.save(new ProductEntity(dto.uuid(), dto.code(), dto.name(), dto.stock()))
+                .map(entity -> new ProductDTO(entity.uuid(), entity.code(), entity.name(), dto.stock()));
     }
 
     @Override
@@ -36,13 +36,13 @@ public class ProductReactivePostgresRepositoryImpl implements IProductReactiveRe
     @Override
     public Flux<ProductDTO> findAll() {
         return repository.findAll()
-                .map(entity -> new ProductDTO(entity.uuid(), entity.code(), entity.name()));
+                .map(entity -> new ProductDTO(entity.uuid(), entity.code(), entity.name(), entity.stock()));
     }
 
     @Override
     public Mono<ProductDTO> findById(UUID uuid) {
         return repository.findById(uuid)
-                .map(entity -> new ProductDTO(entity.uuid(), entity.code(), entity.name()));
+                .map(entity -> new ProductDTO(entity.uuid(), entity.code(), entity.name(), entity.stock()));
     }
 
     @Override
